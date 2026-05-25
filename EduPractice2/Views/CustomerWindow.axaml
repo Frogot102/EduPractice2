@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:EduPractice2.ViewModels"
+        x:Class="EduPractice2.Views.CustomerWindow"
+        x:DataType="vm:CustomerWindowViewModel"
+        Title="Экран заказчика - EduPractice2"
+        Width="900" Height="650"
+        WindowStartupLocation="CenterScreen"
+        Background="#F1F1F1">
+
+    <Grid RowDefinitions="Auto,*" Margin="20">
+        <!-- Шапка с информацией о пользователе и кнопкой выхода -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,20">
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="{Binding WelcomeMessage}"
+                           FontFamily="Century Gothic" FontSize="20" FontWeight="Bold"
+                           Foreground="#BB0C07"/>
+                <TextBlock Text="{Binding UserRoleName}"
+                           FontFamily="Century Gothic" FontSize="14"
+                           Foreground="#4867AC"/>
+            </StackPanel>
+
+            <Button Grid.Column="1" Content="ВЫХОД" Command="{Binding LogoutCommand}"
+                    Background="#BB0C07" Foreground="#FFFFFF"
+                    FontFamily="Century Gothic" FontSize="13" FontWeight="Bold"
+                    Padding="20,8" Cursor="Hand"/>
+        </Grid>
+
+        <!-- Основной контент -->
+        <Border Grid.Row="1" Background="#FFFFFF" CornerRadius="5" Padding="20"
+                BorderBrush="#4867AC" BorderThickness="1">
+            <TextBlock Text="Функционал заказчика будет здесь"
+                       FontFamily="Century Gothic" FontSize="16"
+                       Foreground="#000000"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+    </Grid>
+</Window>

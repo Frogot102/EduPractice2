@@ -1,0 +1,19 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:EduPractice2.ViewModels"
+        x:Class="EduPractice2.Views.ManagerWindow"
+        Title="Ìåíåäæåð - EduPractice2"
+        Width="900" Height="600"
+        Background="#F1F1F1">
+    <Grid Margin="20" RowDefinitions="Auto,*">
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,20">
+            <TextBlock Text="ÏÀÍÅËÜ ÌÅÍÅÄÆÅÐÀ" FontFamily="Century Gothic" FontSize="20" Foreground="#BB0C07" FontWeight="Bold"/>
+            <Button Grid.Column="1" Content="ÂÛÕÎÄ" Background="#BB0C07" Foreground="White" Padding="20,5" Cursor="Hand"/>
+        </Grid>
+        <Border Grid.Row="1" Background="White" CornerRadius="5" Padding="20" BorderBrush="#4867AC" BorderThickness="1">
+            <TextBlock Text="Ôóíêöèîíàë Ìåíåäæåðà (Ñïèñêè çàêàçîâ, Ôèëüòðû)"
+                       FontFamily="Century Gothic" FontSize="16"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+    </Grid>
+</Window>

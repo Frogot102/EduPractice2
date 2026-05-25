@@ -1,0 +1,14 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:EduPractice2.ViewModels"
+        x:Class="EduPractice2.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Система управления производством - EduPractice2"
+        Width="1100" Height="750"
+        WindowStartupLocation="CenterScreen"
+        Background="#F1F1F1"
+        MinWidth="800" MinHeight="600"
+        Icon="C:\Users\Frogot1\source\repos\EduPractice2\EduPractice2\image\Logo_Color_Transparent.png">
+
+    <ContentControl Content="{Binding CurrentViewModel}" />
+</Window>

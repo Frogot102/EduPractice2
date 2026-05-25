@@ -1,0 +1,55 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:EduPractice2.ViewModels"
+             x:Class="EduPractice2.Views.LoginView"
+             x:DataType="vm:LoginViewModel">
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="40">
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,30">
+            <TextBlock Text="🏭" FontSize="48" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+            <TextBlock Text="СИСТЕМА УПРАВЛЕНИЯ" FontFamily="Century Gothic" FontSize="18"
+                       FontWeight="Bold" Foreground="#BB0C07" HorizontalAlignment="Center"/>
+            <TextBlock Text="ПРОИЗВОДСТВОМ" FontFamily="Century Gothic" FontSize="18"
+                       FontWeight="Bold" Foreground="#BB0C07" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+            <TextBlock Text="Логин:" FontFamily="Century Gothic" FontSize="14"
+                       Foreground="#000000" Margin="0,0,0,5"/>
+            <TextBox Text="{Binding Login}" PlaceholderText="Введите логин"
+                     FontFamily="Century Gothic" FontSize="14" Padding="10"
+                     Margin="0,0,0,15" Background="#FFFFFF" BorderBrush="#4867AC"/>
+
+            <TextBlock Text="Пароль:" FontFamily="Century Gothic" FontSize="14"
+                       Foreground="#000000" Margin="0,0,0,5"/>
+            <TextBox Text="{Binding Password}" PlaceholderText="Введите пароль"
+                     PasswordChar="*"
+                     FontFamily="Century Gothic" FontSize="14" Padding="10"
+                     Margin="0,0,0,15" Background="#FFFFFF" BorderBrush="#4867AC"/>
+
+            <CheckBox Content="Запомнить меня" IsChecked="{Binding RememberMe}"
+                      FontFamily="Century Gothic" FontSize="13"
+                      Foreground="#4867AC" Margin="0,0,0,15"/>
+
+            <TextBlock Text="{Binding ErrorMessage}"
+                       Foreground="#BB0C07" FontFamily="Century Gothic" FontSize="12"
+                       TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,10"
+                       IsVisible="{Binding HasError}"/>
+
+            <Button Content="ВОЙТИ" Command="{Binding LoginCommand}"
+                    Background="#BB0C07" Foreground="#FFFFFF"
+                    FontFamily="Century Gothic" FontSize="14" FontWeight="Bold"
+                    Padding="15,10" Margin="0,20,0,10" Cursor="Hand"/>
+
+            <Button Content="РЕГИСТРАЦИЯ" Command="{Binding OpenRegisterCommand}"
+                    Background="#4867AC" Foreground="#FFFFFF"
+                    FontFamily="Century Gothic" FontSize="13"
+                    Padding="10,8" Margin="0,5" Cursor="Hand"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,20,0,0">
+            <TextBlock Text="© 2024 Производство" FontFamily="Century Gothic" FontSize="11"
+                       Foreground="#4867AC" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

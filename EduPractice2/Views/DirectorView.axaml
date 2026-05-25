@@ -1,0 +1,178 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:EduPractice2.ViewModels"
+             xmlns:m="using:EduPractice2.Models"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="1000"
+             x:Class="EduPractice2.Views.DirectorView"
+             x:DataType="vm:DirectorWindowViewModel">
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+        <!-- Шапка -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,15">
+            <StackPanel>
+                <TextBlock Text="🏭 СИСТЕМА УПРАВЛЕНИЯ ПРОИЗВОДСТВОМ" 
+                           FontFamily="Century Gothic" FontSize="18" FontWeight="Bold" 
+                           Foreground="#BB0C07"/>
+                <TextBlock Text="ПАНЕЛЬ ДИРЕКТОРА - УЧЕТ РАБОТНИКОВ" 
+                           FontFamily="Century Gothic" FontSize="14" 
+                           Foreground="#4867AC" Margin="0,5,0,0"/>
+            </StackPanel>
+            <Button Grid.Column="1" Content="ВЫХОД" 
+                    Command="{Binding LogoutCommand}"
+                    Background="#BB0C07" Foreground="White" 
+                    Padding="25,8" Cursor="Hand"
+                    FontFamily="Century Gothic" FontSize="13" FontWeight="Bold"/>
+        </Grid>
+
+        <!-- Список работников -->
+        <Border Grid.Row="1" Background="White" CornerRadius="5" Padding="15" 
+                BorderBrush="#4867AC" BorderThickness="2" Margin="0,0,0,15">
+            <Grid RowDefinitions="Auto,*">
+                <TextBlock Grid.Row="0" Text="СПИСОК РАБОТНИКОВ" 
+                           FontFamily="Century Gothic" FontSize="16" FontWeight="Bold" 
+                           Foreground="#BB0C07" Margin="0,0,0,10"/>
+                
+                <ListBox Grid.Row="1" 
+                         ItemsSource="{Binding Employees}"
+                         SelectedItem="{Binding SelectedEmployee}"
+                         FontFamily="Century Gothic" FontSize="12"
+                         BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="m:Employee">
+                            <Border Background="White" BorderBrush="#F1F1F1" BorderThickness="1" 
+                                    Padding="10" Margin="0,2" CornerRadius="3">
+                                <Grid ColumnDefinitions="200,70,120,150,150,*,180">
+                                    <TextBlock Grid.Column="0" Text="{Binding FullName}" 
+                                               FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Age}" 
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding RoleName}" 
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="3" Text="{Binding Qualification}" 
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="4" Text="{Binding Education}" 
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="5" Text="{Binding OperationsList}" 
+                                               TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    
+                                    <StackPanel Grid.Column="6" Orientation="Horizontal" 
+                                                HorizontalAlignment="Center" Spacing="5">
+                                        <Button Content="✎ Изм." 
+                                                Command="{Binding $parent[ListBox].DataContext.EditEmployeeCommand}"
+                                                CommandParameter="{Binding}"
+                                                Background="#4867AC" Foreground="White" 
+                                                Padding="8,4" Cursor="Hand"
+                                                FontFamily="Century Gothic" FontSize="11"/>
+                                        <Button Content="🗑 Удал." 
+                                                Command="{Binding $parent[ListBox].DataContext.DeleteCommand}"
+                                                CommandParameter="{Binding}"
+                                                Background="#BB0C07" Foreground="White" 
+                                                Padding="8,4" Cursor="Hand"
+                                                FontFamily="Century Gothic" FontSize="11"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+
+        <!-- Форма добавления/редактирования -->
+        <Border Grid.Row="2" Background="#FFFFFF" CornerRadius="5" Padding="20" 
+                BorderBrush="#F3CC8D" BorderThickness="2">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*,*">
+                    
+                    <TextBlock Grid.ColumnSpan="2" Text="{Binding FormTitle}" 
+                               FontFamily="Century Gothic" FontSize="16" FontWeight="Bold" 
+                               Foreground="#BB0C07" Margin="0,0,0,15"/>
+
+                    <!-- Левая колонка - Данные учетной записи -->
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,15,0">
+                        <TextBlock Text="Логин:" 
+                                   FontFamily="Century Gothic" FontSize="12" Foreground="#000" Margin="0,0,0,5"/>
+                        <TextBox Text="{Binding FormLogin}" Margin="0,0,0,15" Padding="8"
+                                 Watermark="Введите логин"/>
+                        
+                        <TextBlock Text="Пароль:" 
+                                   FontFamily="Century Gothic" FontSize="12" Foreground="#000" Margin="0,0,0,5"/>
+                        <TextBox Text="{Binding FormPassword}" Margin="0,0,0,15" Padding="8"
+                                 Watermark="Введите пароль" PasswordChar="*"/>
+                        
+                        <TextBlock Text="Роль:" 
+                                   FontFamily="Century Gothic" FontSize="12" Foreground="#000" Margin="0,0,0,5"/>
+                        <ComboBox ItemsSource="{Binding Roles}"
+                                  SelectedItem="{Binding SelectedRole}"
+                                  Margin="0,0,0,15" Padding="8">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate DataType="m:Role">
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        
+                        <TextBlock Text="ФИО:" 
+                                   FontFamily="Century Gothic" FontSize="12" Foreground="#000" Margin="0,0,0,5"/>
+                        <TextBox Text="{Binding FormFullName}" Margin="0,0,0,15" Padding="8"
+                                 Watermark="Фамилия Имя Отчество"/>
+                        
+                        <TextBlock Text="Дата рождения:" 
+                                   FontFamily="Century Gothic" FontSize="12" Foreground="#000" Margin="0,0,0,5"/>
+                        <DatePicker SelectedDate="{Binding FormBirthDate}" 
+                                    Margin="0,0,0,15" Padding="8"
+                                    FontFamily="Century Gothic"/>
+                        
+                        <TextBlock Text="Домашний адрес:" 
+                                   FontFamily="Century Gothic" FontSize="12" Foreground="#000" Margin="0,0,0,5"/>
+                        <TextBox Text="{Binding FormAddress}" Margin="0,0,0,15" Padding="8"
+                                 Watermark="Город, улица, дом, квартира"/>
+                    </StackPanel>
+
+                    <!-- Правая колонка - Профессиональные данные -->
+                    <StackPanel Grid.Row="1" Grid.Column="1" Margin="15,0,0,0">
+                        <TextBlock Text="Образование:" 
+                                   FontFamily="Century Gothic" FontSize="12" Foreground="#000" Margin="0,0,0,5"/>
+                        <TextBox Text="{Binding FormEducation}" Margin="0,0,0,15" Padding="8"
+                                 Watermark="Учебное заведение, специальность"/>
+                        
+                        <TextBlock Text="Квалификация:" 
+                                   FontFamily="Century Gothic" FontSize="12" Foreground="#000" Margin="0,0,0,5"/>
+                        <TextBox Text="{Binding FormQualification}" Margin="0,0,0,15" Padding="8"
+                                 Watermark="Разряд, категория"/>
+                        
+                        <TextBlock Text="Список операций (через запятую):" 
+                                   FontFamily="Century Gothic" FontSize="12" Foreground="#000" Margin="0,0,0,5"/>
+                        <TextBox Text="{Binding FormOperations}" 
+                                 AcceptsReturn="True" TextWrapping="Wrap"
+                                 Height="120" Margin="0,0,0,15" Padding="8"
+                                 Watermark="Токарная обработка, Фрезеровка, Сверление..."/>
+                        
+                        <TextBlock Text="{Binding ErrorMessage}"
+                                   Foreground="#BB0C07" FontFamily="Century Gothic" FontSize="12"
+                                   TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,10"
+                                   IsVisible="{Binding ErrorMessage}"/>
+                    </StackPanel>
+
+                    <!-- Кнопки -->
+                    <StackPanel Grid.Row="4" Grid.ColumnSpan="2" 
+                                Orientation="Horizontal" HorizontalAlignment="Right" 
+                                Margin="0,20,0,0" Spacing="10">
+                        <Button Content="💾 Сохранить" 
+                                Command="{Binding SaveCommand}"
+                                Background="#BB0C07" Foreground="White" 
+                                Padding="20,8" Cursor="Hand"
+                                FontFamily="Century Gothic" FontSize="13" FontWeight="Bold"/>
+                        <Button Content="✖ Очистить" 
+                                Command="{Binding ClearFormCommand}"
+                                Background="#4867AC" Foreground="White" 
+                                Padding="20,8" Cursor="Hand"
+                                FontFamily="Century Gothic" FontSize="13"/>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>
